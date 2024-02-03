@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>FORMULARIO</title>
+</head>
+
+<body>
+    <div class="orden">
+        <h1>Formulario</h1>
+        <div class="contenedor">
+            <div class="contenido">
+                <input type="" id="nombres" placeholder="Nombres">
+                <input type="" id="apellidos" placeholder="Apellidos">
+                <label for="genero">Masculino
+                    <input type="radio" name="genero" id="m">
+                </label>
+                <label for="genero">Femenino
+                    <input type="radio" name="genero" id="f">
+                </label>
+                <input type="text" id="telefono" placeholder="Numero de teléfono" />
+                <select name="tipo de documento" id="lista">
+                    <option value="tipo de documento">Tipo de documento</option>
+                    <option value="cedula">Cédula</option>
+                    <option value="tarjeta de identidad">T.I</option>
+                    <option value="Cedula extranjera">Cédula extranjera</option>
+                </select>
+                <input type="text" id="numeroDocumento" placeholder="Documento">
+                <input type="text" id="correo" placeholder="Correo">
+                <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                <input type="date" name="nacimiento" id="fechaNacimiento" required>
+                <button onclick="enviar()">ENVIAR</button>
+
+            </div>
+        </div>
+        <div id="divpintar">
+
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <td>Nombres</td>
+                    <td>Apellidos</td>
+                    <td>Genero</td>
+                    <td>Telefono</td>
+                    <td>Tipo de documento</td>
+                    <td>Numero de documento</td>
+                    <td>Correo</td>
+                    <td>Fecha de nacimiento</td>
+                </tr>
+            </thead>
+            <tbody id="tablaDatos">
+                
+            </tbody>
+        </table>
+
+    </div>
+</body>
+<script>
+    let data = [];
+    function enviar() {
+    let g = "";
+
+    if (document.getElementById("m").checked) {
+        g = "Masculino";
+    } else {
+        g = "Femenino";
+    }
+
+    let datos = {
+        genero: g,
+        tipodoc: document.getElementById("lista").value,
+        nombres: document.getElementById("nombres").value,
+        apellidos: document.getElementById("apellidos").value,
+        telefono: document.getElementById("telefono").value,
+        numdoc: document.getElementById("numeroDocumento").value,
+        correo: document.getElementById("correo").value,
+        fechaNacimiento: document.getElementById("fechaNacimiento").value,
+    };
+
+    console.log(datos);
+    data.push(datos);
+    console.log(data);
+
+    // este limpia el contenido de la tablaDatos
+    document.getElementById("tablaDatos").innerHTML = "";
+
+    pintar();
+
+    //este  limpia los campos  formulario
+    document.getElementById("nombres").value = "";
+    document.getElementById("apellidos").value = "";
+    document.getElementById("m").checked = false;
+    document.getElementById("f").checked = false;
+    document.getElementById("telefono").value = "";
+    document.getElementById("lista").value = "tipo de documento";
+    document.getElementById("numeroDocumento").value = "";
+    document.getElementById("correo").value = "";
+    document.getElementById("fechaNacimiento").value = "";
+}
+    
+
+
+function pintar() {
+    data.forEach((item) => {
+        let tr = document.createElement("tr");
+
+        // tenia que nombrar los let y darles valor para que se pintara en la tabla
+        let tdNombres = document.createElement("td");
+        tdNombres.textContent = item.nombres;
+
+        let tdApellidos = document.createElement("td");
+        tdApellidos.textContent = item.apellidos;
+
+        let tdGenero = document.createElement("td");
+        tdGenero.textContent = item.genero;
+
+        let tdTelefono = document.createElement("td");
+        tdTelefono.textContent = item.telefono;
+
+        let tdTipoDoc = document.createElement("td");
+        tdTipoDoc.textContent = item.tipodoc;
+
+        let tdNumDoc = document.createElement("td");
+        tdNumDoc.textContent = item.numdoc;
+
+        let tdCorreo = document.createElement("td");
+        tdCorreo.textContent = item.correo;
+
+        let tdFechaNacimiento = document.createElement("td");
+        tdFechaNacimiento.textContent = item.fechaNacimiento;
+
+        // y aca agregar las celdas a la fila, nombrar cada una
+        tr.appendChild(tdNombres);
+        tr.appendChild(tdApellidos);
+        tr.appendChild(tdGenero);
+        tr.appendChild(tdTelefono);
+        tr.appendChild(tdTipoDoc);
+        tr.appendChild(tdNumDoc);
+        tr.appendChild(tdCorreo);
+        tr.appendChild(tdFechaNacimiento);
+
+        // Agrega la fila a la tabla
+        document.getElementById("tablaDatos").appendChild(tr);
+    });
+}
+
+
+</script>
+
+</html>
